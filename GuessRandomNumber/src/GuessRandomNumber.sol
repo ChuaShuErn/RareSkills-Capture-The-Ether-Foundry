@@ -6,16 +6,7 @@ contract GuessRandomNumber {
 
     constructor() payable {
         require(msg.value == 1 ether);
-        answer = uint8(
-            uint256(
-                keccak256(
-                    abi.encodePacked(
-                        blockhash(block.number - 1),
-                        block.timestamp
-                    )
-                )
-            )
-        );
+        answer = uint8(uint256(keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))));
     }
 
     function isComplete() public view returns (bool) {
@@ -26,7 +17,7 @@ contract GuessRandomNumber {
         require(msg.value == 1 ether);
 
         if (n == answer) {
-            (bool ok, ) = msg.sender.call{value: 2 ether}("");
+            (bool ok,) = msg.sender.call{value: 2 ether}("");
             require(ok, "Fail to send to msg.sender");
         }
     }
@@ -37,8 +28,11 @@ contract ExploitContract {
     GuessRandomNumber public guessRandomNumber;
     uint8 public answer;
 
-    function Exploit() public returns (uint8) {
-        
+    function setAnswer(uint8 _answer) public {
+        answer = _answer;
+    }
+
+    function Exploit() public view returns (uint8) {
         return answer;
     }
 }

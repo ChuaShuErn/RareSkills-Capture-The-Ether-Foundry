@@ -22,6 +22,14 @@ contract GuessRandomNumberTest is Test {
         // Place your solution here
         guessRandomNumber = (new GuessRandomNumber){value: 1 ether}();
         exploitContract = new ExploitContract();
+        // Load variable from storage slot 0
+        bytes32 variable = vm.load(address(guessRandomNumber), 0);
+        //console.log("variable:", variable);
+        uint256 variableInt = uint256(variable);
+        console.log("variableInt:", variableInt);
+        uint8 _answer = uint8(variableInt);
+        console.log("_answer:", _answer);
+        exploitContract.setAnswer(_answer);
         uint8 guess = exploitContract.Exploit();
         guessRandomNumber.guess{value: 1 ether}(guess);
 
