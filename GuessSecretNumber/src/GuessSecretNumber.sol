@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+import {console} from "forge-std/console.sol";
+
 contract GuessTheSecretNumber {
-    bytes32 answerHash =
-        0xdb81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365;
+    bytes32 answerHash = 0xdb81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365;
 
     constructor() payable {
         require(msg.value == 1 ether);
@@ -17,7 +18,7 @@ contract GuessTheSecretNumber {
         require(msg.value == 1 ether);
 
         if (keccak256(abi.encodePacked(n)) == answerHash) {
-            (bool ok, ) = msg.sender.call{value: 2 ether}("");
+            (bool ok,) = msg.sender.call{value: 2 ether}("");
             require(ok, "Failed to Send 2 ether");
         }
         return true;
@@ -26,11 +27,16 @@ contract GuessTheSecretNumber {
 
 // Write your exploit codes below
 contract ExploitContract {
-    bytes32 answerHash =
-        0xdb81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365;
+    bytes32 answerHash = 0xdb81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365;
 
     function Exploiter() public view returns (uint8) {
         uint8 n;
+        for (; n < 256; n++) {
+            if (keccak256(abi.encodePacked(n)) == answerHash) {
+                console.log("n:", n);
+                break;
+            }
+        }
         return n;
     }
 }
