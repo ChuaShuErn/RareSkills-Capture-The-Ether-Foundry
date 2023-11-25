@@ -54,7 +54,7 @@ contract TankBankTest is Test {
 
         // Token Contract Balance:
 
-        // TokenBank: 1_000k
+        // TokenBank: 1_000
 
         // Attacker : 0
 
@@ -62,9 +62,9 @@ contract TankBankTest is Test {
 
         // Bank Contract Balance:
 
-        // Deployer: 500k
+        // Deployer: 500
 
-        // player: 500k
+        // player: 500
 
         console.log("begin");
 
@@ -92,11 +92,11 @@ contract TankBankTest is Test {
 
         // Deployer: 0
 
-        // TokenBank: 500k
+        // TokenBank: 500
 
         // Attacker : 0
 
-        // player :500k
+        // player :500
 
         assertEq(token.balanceOf(address(this)), 0);
 
@@ -108,7 +108,7 @@ contract TankBankTest is Test {
 
         // Bank Contract Balance:
 
-        // Deployer: 500k
+        // Deployer: 500
 
         // Bank Contract: 0
 
@@ -134,9 +134,9 @@ contract TankBankTest is Test {
 
         // Deployer:0
 
-        // TokenBank: 500k
+        // TokenBank: 500
 
-        // Attacker : 500k
+        // Attacker : 500
 
         // player:0
 
@@ -150,7 +150,7 @@ contract TankBankTest is Test {
 
         // Bank Contract Balance:
 
-        // Deployer: 500k
+        // Deployer: 500
 
         // Bank Contract: 0
 
@@ -178,7 +178,7 @@ contract TankBankTest is Test {
 
         // Deployer:0
 
-        // Bank Contract:1_000k
+        // Bank Contract:1_000
 
         // Attacker: 0
 
@@ -194,11 +194,11 @@ contract TankBankTest is Test {
 
         //Bank Contract Balance:
 
-        // Deployer: 500k
+        // Deployer: 500
 
         // Bank Contract: 0;
 
-        // Attacker: 500k
+        // Attacker: 500
 
         // player:0
 
