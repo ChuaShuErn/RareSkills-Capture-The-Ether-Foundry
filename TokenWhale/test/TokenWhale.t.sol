@@ -17,12 +17,26 @@ contract TokenWhaleTest is Test {
         // Deploy contracts
         tokenWhale = new TokenWhale(address(this));
         exploitContract = new ExploitContract(tokenWhale);
+        exploitContract.setPlayer(address(this));
+        vm.label(Alice, "Alice");
+        vm.label(Bob, "Bob");
+        vm.label(Pete, "Pete");
+        vm.label(address(tokenWhale), "Token Whale");
+        vm.label(address(exploitContract), "Exploiter");
+        vm.label(address(this), "Player");
     }
 
     // Use the instance tokenWhale and exploitContract
     // Use vm.startPrank and vm.stopPrank to change between msg.sender
     function testExploit() public {
         // Put your solution here
+        console.log("Balance of Player At Start:", tokenWhale.balanceOf(address(this)));
+        vm.startPrank(address(this));
+        tokenWhale.approve(address(exploitContract), 100e18);
+        exploitContract.Exploit();
+        console.log("Balance of ExploitContract:", tokenWhale.balanceOf(address(exploitContract)));
+        console.log("Balance of Player:", tokenWhale.balanceOf(address(this)));
+        vm.stopPrank();
 
         _checkSolved();
     }
